@@ -1,0 +1,37 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    #############################
+    # 1. STOP redirect /file/
+    #############################
+    # Jika URL diawali /file/ → rewrite internal ke /f/
+    #RewriteCond %{REQUEST_URI} ^/file/
+    #RewriteRule ^file/(.*)$ /f/$1 [L]
+
+    #############################
+    # 2. Hilangkan index.php CI4
+    #############################
+    #RewriteCond %{THE_REQUEST} \s/index\.php/([^\s?]*) [NC]
+    #RewriteRule ^index\.php/(.*)$ /$1 [R=301,L]
+
+    #############################
+    # 3. Redirect semua ke /p/
+    #    KECUALI:
+    #    - /p/
+    #    - /f/
+    #    - /file/
+    #############################
+    RewriteCond %{REQUEST_URI} !^/p/
+    #RewriteCond %{REQUEST_URI} !^/f/
+    #RewriteCond %{REQUEST_URI} !^/file/
+    RewriteRule ^(.*)$ /p/$1 [L]
+
+</IfModule>
+
+<FilesMatch "debugbar\.php">
+    Order Deny,Allow
+    Deny from all
+    Allow from 127.0.0.1
+    Allow from 103.156.164.10
+</FilesMatch>
+
