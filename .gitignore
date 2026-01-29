@@ -4,7 +4,6 @@ s/writable/logs/
 s/writable/session/
 s/app/Config/Database.php
 p/f/produk/
-p/f/system/
 p/f/toko/
 p/f/user/
 p/f/worker/

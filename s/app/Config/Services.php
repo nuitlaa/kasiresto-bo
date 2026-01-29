@@ -3,6 +3,8 @@
 namespace Config;
 
 use CodeIgniter\Config\BaseService;
+use CodeIgniter\HTTP\SiteURIFactory;
+use CodeIgniter\Superglobals;
 
 /**
  * Services Configuration file.
@@ -19,6 +21,34 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
+    /**
+     * The Factory for SiteURI.
+     *
+     * @return SiteURIFactory
+     */
+    public static function siteurifactory(
+        ?App $config = null,
+        ?Superglobals $superglobals = null,
+        bool $getShared = true,
+    ) {
+        if ($getShared) {
+            return static::getSharedInstance('siteurifactory', $config, $superglobals);
+        }
+
+        // Fix for "Argument #1 must be Config\App, null given" error
+        if ($config === null) {
+            $config = config('App');
+        }
+
+        if ($config === null && class_exists(App::class)) {
+            $config = new App();
+        }
+
+        $superglobals ??= static::get('superglobals');
+
+        return new SiteURIFactory($config, $superglobals);
+    }
+
     /*
      * public static function example($getShared = true)
      * {

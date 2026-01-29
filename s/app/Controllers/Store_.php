@@ -7,27 +7,7 @@ class Store_ extends BaseController{
     public function __construct() {
         $session = \Config\Services::session(); 
         helper(['global', 'upload', 'text']);
-        public function hapus() {
-        $db = db_connect();
-        $id = $this->request->getPost('id');
-        $ret = ['status' => false, 'message' => 'Gagal menghapus toko'];
-
-        if ($id) {
-             // Cek ketergantungan data jika perlu (misal transaksi, stok, dll)
-             // Untuk saat ini hapus soft delete atau hard delete sesuai permintaan user sebelumnya (hard delete)
-             
-             // Hapus privilage/karyawan toko
-             $db->table('account_store_privilage')->where('store', $id)->delete();
-             
-             // Hapus toko
-             $db->table('account_store')->where('id', $id)->delete();
-             
-             $ret['status'] = true;
-             $ret['message'] = 'Toko berhasil dihapus';
-        }
-        echo json_encode($ret);
     }
-}
     public function index(){
         $data = array();
         $db = db_connect(); 
