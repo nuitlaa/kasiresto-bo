@@ -33,7 +33,7 @@ Events::on('pre_system', static function (): void {
             ob_end_flush();
         }
         // Jangan pakai output buffer untuk AJAX
-        if (! service('request')->isAJAX()) {
+        if (! is_cli() && ! service('request')->isAJAX()) {
             ob_start(static fn ($buffer) => $buffer);
         }
         ////ob_start(static fn ($buffer) => $buffer);
@@ -57,7 +57,7 @@ Events::on('pre_system', static function (): void {
     }
 });
 Events::on('post_controller', function() {
-    if (service('request')->isAJAX()) {
+    if (! is_cli() && service('request')->isAJAX()) {
         service('toolbar')->disable();
     }
 });

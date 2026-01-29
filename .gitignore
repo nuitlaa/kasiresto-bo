@@ -8,3 +8,5 @@ p/f/system/
 p/f/toko/
 p/f/user/
 p/f/worker/
+s/.env
+s/app/Config/App.php

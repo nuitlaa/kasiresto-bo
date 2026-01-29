@@ -109,11 +109,13 @@ $routes->match(['get','post'], 'daftar_pelanggan/(:segment)/(:any)', 'Cashier_::
 $routes->add('toko', 									'Store::detail');
 $routes->add('toko/ubah/(:any)',						'Store::tambah/$1');
 $routes->add('toko/(:any)(.*)', 						'Store::$1$2');
+$routes->post('toko/hapus', 					'Store_::hapus');
 $routes->post('toko/(:any)(.*)', 						'Store_::$1$2');
 
 $routes->add('petugas', 								'Worker::detail');
 $routes->add('petugas/ubah/(:any)',						'Worker::tambah/$1');
 $routes->add('petugas/(:any)(.*)', 						'Worker::$1$2');
+$routes->post('petugas/hapus', 					'Worker_::hapus');
 $routes->post('petugas/(:any)(.*)', 					'Worker_::$1$2');
 
 $routes->add('produk', 									'Product::detail');
@@ -159,7 +161,10 @@ $routes->add('admin_/(:any)/(:any)/(:any)',             	'Admin_::$1/$2/$3');
 $routes->add('admin_/(:any)/(:any)/(:any)/(:any)',      	'Admin_::$1/$2/$3/$4'); 
 
 
-$routes->add('a/(:any)',                           	'A::$1'); 
+$routes->cli('seeder/workers', 'Worker::seed');
+$routes->cli('seeder/workers', 'Worker::seed');
+$routes->cli('seeder/workers/(:num)', 'Worker::seed/$1');
 $routes->add('a/(:any)/(:any)',                    	'A::$1/$2'); 
 $routes->add('a/(:any)/(:any)/(:any)',             	'A::$1/$2/$3'); 
+$routes->add('a/(:any)/(:any)/(:any)/(:any)',      	'A::$1/$2/$3/$4'); 
 $routes->add('a/(:any)/(:any)/(:any)/(:any)',      	'A::$1/$2/$3/$4'); 

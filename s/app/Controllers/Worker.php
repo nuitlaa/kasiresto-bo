@@ -64,5 +64,88 @@ class Worker extends BaseController{
          
     }
 
+    public function seed() {
+        if (php_sapi_name() !== 'cli') {
+            die("CLI only");
+        }
+        
+        $db = \Config\Database::connect();
+        helper(['global', 'text']);
+        
+        $company = $db->table('account_company')->get()->getRowArray();
+        if (!$company) {
+            echo "No company found.";
+            return;
+        }
+        $companyId = $company['id'];
+        
+        $store = $db->table('account_store')->where('company', $companyId)->get()->getRowArray();
+        $storeId = $store ? $store['id'] : 0;
 
+        echo "Seeding 50 workers for Company ID: $companyId...\n";
+
+        for ($i = 1; $i <= 50; $i++) {
+            $username = 'petugas' . $i . '_' . time();
+            $password = '123456';
+            
+            $save = [
+                'user' => $username,
+                'pass' => passcreate($password),
+                'name' => 'Petugas Dummy ' . $i,
+                'type' => 'employee',
+                'status' => 'active',
+                'created' => date('Y-m-d H:i:s'),
+                'foto' => '',
+            ];
+            
+            $db->table('account')->insert($save);
+            $userId = $db->insertID();
+            
+            $savePriv = [
+                'account' => $userId,
+                'company' => $companyId,
+                'store' => $storeId,
+                'privilage' => 'employee',
+                'created' => date('Y-m-d H:i:s')
+            ];
+            
+            $db->table('account_store_privilage')->insert($savePriv);
+        }
+        echo "Done. 50 users created.\n";
+    }
+
+    public function seedweb() {
+        if (isset($_SESSION['userty'])&&$_SESSION['userty']!='') {} else {return redirect()->to(site_url('login'));}
+        $db = db_connect();
+        helper(['global','text']);
+        $userid     = usertoken($_SESSION['usertoken']);
+        $companyId  = companyid($userid);
+        if (!$companyId) { echo "Company not found."; return; }
+        $store      = $db->table('account_store')->where('company', $companyId)->get()->getRowArray();
+        $storeId    = $store ? $store['id'] : 0;
+        for ($i = 1; $i <= 50; $i++) {
+            $username = 'petugas' . $i . '_' . time();
+            $password = '123456';
+            $save = [
+                'user' => $username,
+                'pass' => passcreate($password),
+                'name' => 'Petugas Dummy ' . $i,
+                'type' => 'employee',
+                'status' => 'active',
+                'created' => date('Y-m-d H:i:s'),
+                'foto' => '',
+            ];
+            $db->table('account')->insert($save);
+            $userId = $db->insertID();
+            $savePriv = [
+                'account' => $userId,
+                'company' => $companyId,
+                'store' => $storeId,
+                'privilage' => 'employee',
+                'created' => date('Y-m-d H:i:s')
+            ];
+            $db->table('account_store_privilage')->insert($savePriv);
+        }
+        return redirect()->to(site_url('petugas/list?status=active'));
+    }
 }

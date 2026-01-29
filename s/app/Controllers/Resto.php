@@ -47,9 +47,9 @@ class Resto extends BaseController{
         $userid = usertoken($token);
             $p = $db->table('account_store_privilage a')->join('account_store s','s.id=a.store')->where(['a.account'=>$userid])->select('a.*,s.name nama_toko,s.address alamat_toko,s.foto foto_raw,s.phone hp_toko')->get()->getRowArray();
             if (!empty($p['foto_raw'])) {
-                $p['foto_toko'] = 'https://store.wiyatajatidiri.com/f/' . str_replace('.', '_thumb.', $p['foto_raw']);
+                $p['foto_toko'] = base_url('f/' . str_replace('.', '_thumb.', $p['foto_raw']));
             } else {
-                $p['foto_toko'] = 'https://store.wiyatajatidiri.com/f/' . sys('nofoto');
+                $p['foto_toko'] = base_url('f/' . sys('nofoto'));
             }
 
             unset($p['foto_raw']);

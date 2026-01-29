@@ -58,54 +58,40 @@
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label class="col-lg-4 col-form-label  fw-bold fs-6">
-						<div class="row">
-							<div class="col-lg-12 fv-row"><label class="col-form-label  fw-bold fs-6">&nbsp;</label></div>
-							<div class="col-lg-12 fv-row"><label class="col-form-label required fw-bold fs-6" style="text-align: left;">Nama Petugas</label></div>
-						</div>
-					</label>
-					<div class="col-lg-5">
-						<div class="row">
-							<div class="col-lg-12 fv-row"><label class="col-form-label  fw-bold fs-6">&nbsp;</label></div>
-							<div class="col-lg-12 fv-row">
-								<input type="text" name="save[name]" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Nama Lengkap Petugas" value="<?=isset($data['name'])?$data['name']:''?>" />
-							</div> 
-						</div>
-					</div>
-
-
-					
-					<div class="col-lg-3 fv-row">
-						<div class="col-lg-12 fv-row"><label class="col-form-label  fw-bold fs-6">Role Petugas</label></div>
-						<div class="col-lg-12 fv-row">
-							<select class="form-select" data-control="select2" name="save[privilage]" >
-								<?php $arr = array('waiter'=>'Pelayan','chef'=>'Dapur','cashier'=>'Petugas Kasir','storekeeper'=>'Petugas Gudang','employee'=>'Pegawai Lainnya','finance'=>'Keuangan','manager'=>'Manager');
-								foreach($arr as $k=>$v){
-									$sel = isset($data['privilage'])&&$data['privilage']==$k?'selected':'';
-									echo '<option value="'.$k.'" '.$sel.'>'.$v.'</option>';
-								} ?>
-							</select>
-						</div>
+					<label class="col-lg-4 col-form-label required fw-bold fs-6">Nama Petugas</label>
+					<div class="col-lg-8 fv-row">
+						<input type="text" name="save[name]" class="form-control form-control-lg form-control-solid" placeholder="Nama Lengkap Petugas" value="<?=isset($data['name'])?$data['name']:''?>" />
 					</div>
 				</div>
+
+				<div class="row mb-6">
+					<label class="col-lg-4 col-form-label required fw-bold fs-6">Role Petugas</label>
+					<div class="col-lg-8 fv-row">
+						<select class="form-select" data-control="select2" name="save[privilage]" >
+							<?php $arr = array('waiter'=>'Pelayan','chef'=>'Dapur','cashier'=>'Petugas Kasir','storekeeper'=>'Petugas Gudang','employee'=>'Pegawai Lainnya','finance'=>'Keuangan','manager'=>'Manager');
+							foreach($arr as $k=>$v){
+								$sel = isset($data['privilage'])&&$data['privilage']==$k?'selected':'';
+								echo '<option value="'.$k.'" '.$sel.'>'.$v.'</option>';
+							} ?>
+						</select>
+					</div>
 				</div>
 				<div class="row mb-6">
 					<label class="col-lg-4 col-form-label required fw-bold fs-6">Username</label>
-					<div class="col-lg-4 fv-row">
+					<div class="col-lg-8 fv-row">
 						<input type="text" name="save[user]" class="form-control form-control-lg form-control-solid" placeholder="Username" value="<?=isset($data['user'])?$data['user']:''?>" <?=isset($data['user'])&&$data['user']!=''?'readonly':''?>  />
 					</div>
 				</div>
 				<div class="row mb-6">
 					<label class="col-lg-4 col-form-label required fw-bold fs-6">Password</label>
-					<div class="col-lg-8">
-						<div class="row">
-							<div class="col-lg-6 fv-row">
-								<input type="password" name="save[pass]" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Password" id="pass" />
-							</div>
-							<div class="col-lg-6 fv-row">
-								<input type="password" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Ulangi Password" id="pass2" />
-							</div>
-						</div>
+					<div class="col-lg-8 fv-row">
+						<input type="password" name="save[pass]" class="form-control form-control-lg form-control-solid" placeholder="Password" id="pass" />
+					</div>
+				</div>
+				<div class="row mb-6">
+					<label class="col-lg-4 col-form-label required fw-bold fs-6">Ulangi Password</label>
+					<div class="col-lg-8 fv-row">
+						<input type="password" class="form-control form-control-lg form-control-solid" placeholder="Ulangi Password" id="pass2" />
 					</div>
 				</div>
 				<div class="row mb-6">
@@ -113,10 +99,13 @@
 						<span class="required">Telepon</span>
 						<i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip" title="Nomor Telepon"></i>
 					</label>
-					<div class="col-lg-4 fv-row">
+					<div class="col-lg-8 fv-row">
 						<input type="tel" name="save[phone]" class="form-control form-control-lg form-control-solid" placeholder="Telepon" value="<?=isset($data['phone'])?$data['phone']:''?>" />
 					</div>
-					<div class="col-lg-4 fv-row">
+				</div>
+				<div class="row mb-6">
+					<label class="col-lg-4 col-form-label fw-bold fs-6">Email</label>
+					<div class="col-lg-8 fv-row">
 						<input type="tel" name="save[email]" class="form-control form-control-lg form-control-solid" placeholder="E-Mail" value="<?=isset($data['email'])?$data['email']:''?>"  />
 					</div>
 				</div>

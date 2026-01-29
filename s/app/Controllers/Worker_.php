@@ -74,6 +74,21 @@ class Worker_ extends BaseController{
         echo json_encode($ret);
     } 
 
+    public function hapus() {
+        $db = db_connect();
+        $id = $this->request->getPost('id');
+        $ret = ['status' => false, 'message' => 'Gagal menghapus data'];
+
+        if ($id) {
+             $db->table('account_store_privilage')->where('account', $id)->delete();
+             $db->table('account')->where('id', $id)->delete();
+             
+             $ret['status'] = true;
+             $ret['message'] = 'Petugas berhasil dihapus';
+        }
+        echo json_encode($ret);
+    }
+
     public function multiupload(){
         helper('upload');
 
